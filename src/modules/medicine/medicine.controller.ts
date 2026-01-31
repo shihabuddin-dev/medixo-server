@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { medicineService } from "./medicines.service";
+import { medicineService } from "./medicine.service";
 
 const getAllMedicines = async (req: Request, res: Response) => {
   try {
@@ -39,15 +39,15 @@ const getSingleMedicine= async (req:Request, res:Response)=>{
 
 const addNewMedicine=async(req:Request, res:Response)=>{
   try {
-    //  const user = req.user;
-    // req.body.seller_id = user?.id;
-    // console.log(user);
-    // const result= await medicineService.addNewMedicine(req.body)
-    // res.status(201).json({
-    //   success: true,
-    //   message: "Successfully create new medicine",
-    //   data: result
-    // })
+    const user = req.user;
+    req.body.seller_id = user?.id;
+    console.log(req.user);
+    const result= await medicineService.addNewMedicine(req.body)
+    res.status(201).json({
+      success: true,
+      message: "Successfully create new medicine",
+      data: result
+    })
   } catch (err) {
     res.status(400).json({
       success: false,

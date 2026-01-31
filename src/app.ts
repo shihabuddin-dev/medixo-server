@@ -5,9 +5,9 @@ import config from "./config";
 import { notFound } from "./middlewares/notFound";
 import errorHandler from "./middlewares/globalErrorHandler";
 import { toNodeHandler } from "better-auth/node";
-import { medicineRouter } from "./modules/medicine/medicines.router";
 import { orderRouter } from "./modules/order/orders.router";
 import { userRouter } from "./modules/user/user.router";
+import { medicineRouter } from "./modules/medicine/medicine.router";
 
 const app: Application = express();
 
