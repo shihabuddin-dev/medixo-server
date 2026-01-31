@@ -44,6 +44,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    "generated/prisma"
+    "prisma/generated/prisma"
   ]
 }
