@@ -1,7 +1,7 @@
 model Medicines {
   id        String @id @default(uuid())
-  seller_id String
-  user      User    @relation(fields: [seller_id], references: [id], onDelete: Cascade)
+  sellerId String
+  user      User    @relation(fields: [sellerId], references: [id], onDelete: Cascade)
   categories_id String?
   name      String
   image     String
@@ -10,6 +10,6 @@ model Medicines {
   description String
   reviews Reviews[]
 
-  @@index([seller_id])
+  @@index([sellerId])
   @@map("medicines")
 }

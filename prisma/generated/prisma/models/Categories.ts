@@ -20,58 +20,46 @@ export type CategoriesModel = runtime.Types.Result.DefaultSelection<Prisma.$Cate
 
 export type AggregateCategories = {
   _count: CategoriesCountAggregateOutputType | null
-  _avg: CategoriesAvgAggregateOutputType | null
-  _sum: CategoriesSumAggregateOutputType | null
   _min: CategoriesMinAggregateOutputType | null
   _max: CategoriesMaxAggregateOutputType | null
 }
 
-export type CategoriesAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type CategoriesSumAggregateOutputType = {
-  id: number | null
-}
-
 export type CategoriesMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
+  slug: string | null
 }
 
 export type CategoriesMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   name: string | null
+  slug: string | null
 }
 
 export type CategoriesCountAggregateOutputType = {
   id: number
   name: number
+  slug: number
   _all: number
 }
 
 
-export type CategoriesAvgAggregateInputType = {
-  id?: true
-}
-
-export type CategoriesSumAggregateInputType = {
-  id?: true
-}
-
 export type CategoriesMinAggregateInputType = {
   id?: true
   name?: true
+  slug?: true
 }
 
 export type CategoriesMaxAggregateInputType = {
   id?: true
   name?: true
+  slug?: true
 }
 
 export type CategoriesCountAggregateInputType = {
   id?: true
   name?: true
+  slug?: true
   _all?: true
 }
 
@@ -113,18 +101,6 @@ export type CategoriesAggregateArgs<ExtArgs extends runtime.Types.Extensions.Int
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: CategoriesAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: CategoriesSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: CategoriesMinAggregateInputType
@@ -155,18 +131,15 @@ export type CategoriesGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   _count?: CategoriesCountAggregateInputType | true
-  _avg?: CategoriesAvgAggregateInputType
-  _sum?: CategoriesSumAggregateInputType
   _min?: CategoriesMinAggregateInputType
   _max?: CategoriesMaxAggregateInputType
 }
 
 export type CategoriesGroupByOutputType = {
-  id: number
+  id: string
   name: string
+  slug: string
   _count: CategoriesCountAggregateOutputType | null
-  _avg: CategoriesAvgAggregateOutputType | null
-  _sum: CategoriesSumAggregateOutputType | null
   _min: CategoriesMinAggregateOutputType | null
   _max: CategoriesMaxAggregateOutputType | null
 }
@@ -190,102 +163,102 @@ export type CategoriesWhereInput = {
   AND?: Prisma.CategoriesWhereInput | Prisma.CategoriesWhereInput[]
   OR?: Prisma.CategoriesWhereInput[]
   NOT?: Prisma.CategoriesWhereInput | Prisma.CategoriesWhereInput[]
-  id?: Prisma.IntFilter<"Categories"> | number
+  id?: Prisma.StringFilter<"Categories"> | string
   name?: Prisma.StringFilter<"Categories"> | string
+  slug?: Prisma.StringFilter<"Categories"> | string
 }
 
 export type CategoriesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
 }
 
 export type CategoriesWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.CategoriesWhereInput | Prisma.CategoriesWhereInput[]
   OR?: Prisma.CategoriesWhereInput[]
   NOT?: Prisma.CategoriesWhereInput | Prisma.CategoriesWhereInput[]
   name?: Prisma.StringFilter<"Categories"> | string
+  slug?: Prisma.StringFilter<"Categories"> | string
 }, "id">
 
 export type CategoriesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   _count?: Prisma.CategoriesCountOrderByAggregateInput
-  _avg?: Prisma.CategoriesAvgOrderByAggregateInput
   _max?: Prisma.CategoriesMaxOrderByAggregateInput
   _min?: Prisma.CategoriesMinOrderByAggregateInput
-  _sum?: Prisma.CategoriesSumOrderByAggregateInput
 }
 
 export type CategoriesScalarWhereWithAggregatesInput = {
   AND?: Prisma.CategoriesScalarWhereWithAggregatesInput | Prisma.CategoriesScalarWhereWithAggregatesInput[]
   OR?: Prisma.CategoriesScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CategoriesScalarWhereWithAggregatesInput | Prisma.CategoriesScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Categories"> | number
+  id?: Prisma.StringWithAggregatesFilter<"Categories"> | string
   name?: Prisma.StringWithAggregatesFilter<"Categories"> | string
+  slug?: Prisma.StringWithAggregatesFilter<"Categories"> | string
 }
 
 export type CategoriesCreateInput = {
+  id?: string
   name: string
+  slug: string
 }
 
 export type CategoriesUncheckedCreateInput = {
-  id?: number
+  id?: string
   name: string
+  slug: string
 }
 
 export type CategoriesUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CategoriesUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CategoriesCreateManyInput = {
-  id?: number
+  id?: string
   name: string
+  slug: string
 }
 
 export type CategoriesUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CategoriesUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CategoriesCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-}
-
-export type CategoriesAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
 }
 
 export type CategoriesMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
 }
 
 export type CategoriesMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-}
-
-export type CategoriesSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+  slug?: Prisma.SortOrder
 }
 
 
@@ -293,31 +266,36 @@ export type IntFieldUpdateOperationsInput = {
 export type CategoriesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  slug?: boolean
 }, ExtArgs["result"]["categories"]>
 
 export type CategoriesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  slug?: boolean
 }, ExtArgs["result"]["categories"]>
 
 export type CategoriesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  slug?: boolean
 }, ExtArgs["result"]["categories"]>
 
 export type CategoriesSelectScalar = {
   id?: boolean
   name?: boolean
+  slug?: boolean
 }
 
-export type CategoriesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["categories"]>
+export type CategoriesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug", ExtArgs["result"]["categories"]>
 
 export type $CategoriesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Categories"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     name: string
+    slug: string
   }, ExtArgs["result"]["categories"]>
   composites: {}
 }
@@ -741,8 +719,9 @@ export interface Prisma__CategoriesClient<T, Null = never, ExtArgs extends runti
  * Fields of the Categories model
  */
 export interface CategoriesFieldRefs {
-  readonly id: Prisma.FieldRef<"Categories", 'Int'>
+  readonly id: Prisma.FieldRef<"Categories", 'String'>
   readonly name: Prisma.FieldRef<"Categories", 'String'>
+  readonly slug: Prisma.FieldRef<"Categories", 'String'>
 }
     
 

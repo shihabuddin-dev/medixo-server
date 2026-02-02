@@ -1,13 +1,13 @@
 model Orders {
     id               String   @id @default(uuid())
-    customer_id      String
-    user             User     @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+    customerId      String
+    user             User     @relation(fields: [customerId], references: [id], onDelete: Cascade)
     status           String
     shipping_address String
     created_at       DateTime @default(now())
     quantity         Int
     price            Int
 
-    @@index([customer_id])
+    @@index([customerId])
     @@map("orders")
 }

@@ -140,7 +140,8 @@ export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[k
 
 export const CategoriesScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  slug: 'slug'
 } as const
 
 export type CategoriesScalarFieldEnum = (typeof CategoriesScalarFieldEnum)[keyof typeof CategoriesScalarFieldEnum]
@@ -148,21 +149,38 @@ export type CategoriesScalarFieldEnum = (typeof CategoriesScalarFieldEnum)[keyof
 
 export const MedicinesScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  sellerId: 'sellerId',
+  categories_id: 'categories_id',
+  name: 'name',
+  image: 'image',
+  stock: 'stock',
+  price: 'price',
+  description: 'description'
 } as const
 
 export type MedicinesScalarFieldEnum = (typeof MedicinesScalarFieldEnum)[keyof typeof MedicinesScalarFieldEnum]
 
 
 export const OrdersScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  customerId: 'customerId',
+  status: 'status',
+  shipping_address: 'shipping_address',
+  created_at: 'created_at',
+  quantity: 'quantity',
+  price: 'price'
 } as const
 
 export type OrdersScalarFieldEnum = (typeof OrdersScalarFieldEnum)[keyof typeof OrdersScalarFieldEnum]
 
 
 export const ReviewsScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  customerId: 'customerId',
+  medicine_id: 'medicine_id',
+  ratings: 'ratings',
+  comment: 'comment',
+  created_at: 'created_at'
 } as const
 
 export type ReviewsScalarFieldEnum = (typeof ReviewsScalarFieldEnum)[keyof typeof ReviewsScalarFieldEnum]

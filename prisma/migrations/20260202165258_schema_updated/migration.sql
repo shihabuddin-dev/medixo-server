@@ -1,3 +1,12 @@
+/*
+  Warnings:
+
+  - Added the required column `sellerId` to the `medicines` table without a default value. This is not possible if the table is not empty.
+
+*/
+-- AlterTable
+ALTER TABLE "medicines" ADD COLUMN     "sellerId" TEXT NOT NULL;
+
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
@@ -60,33 +69,37 @@ CREATE TABLE "verification" (
 );
 
 -- CreateTable
-CREATE TABLE "Categories" (
-    "id" SERIAL NOT NULL,
+CREATE TABLE "categories" (
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
 
-    CONSTRAINT "Categories_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "categories_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Medicines" (
-    "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
+CREATE TABLE "orders" (
+    "id" TEXT NOT NULL,
+    "customerId" TEXT NOT NULL,
+    "status" TEXT NOT NULL,
+    "shipping_address" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "quantity" INTEGER NOT NULL,
+    "price" INTEGER NOT NULL,
 
-    CONSTRAINT "Medicines_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "orders_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Orders" (
-    "id" SERIAL NOT NULL,
+CREATE TABLE "reviews" (
+    "id" TEXT NOT NULL,
+    "customerId" TEXT NOT NULL,
+    "medicine_id" TEXT NOT NULL,
+    "ratings" INTEGER NOT NULL,
+    "comment" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Orders_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Reviews" (
-    "id" SERIAL NOT NULL,
-
-    CONSTRAINT "Reviews_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "reviews_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -104,8 +117,29 @@ CREATE INDEX "account_userId_idx" ON "account"("userId");
 -- CreateIndex
 CREATE INDEX "verification_identifier_idx" ON "verification"("identifier");
 
+-- CreateIndex
+CREATE INDEX "orders_customerId_idx" ON "orders"("customerId");
+
+-- CreateIndex
+CREATE INDEX "reviews_customerId_idx" ON "reviews"("customerId");
+
+-- CreateIndex
+CREATE INDEX "medicines_sellerId_idx" ON "medicines"("sellerId");
+
 -- AddForeignKey
 ALTER TABLE "session" ADD CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "account" ADD CONSTRAINT "account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "medicines" ADD CONSTRAINT "medicines_sellerId_fkey" FOREIGN KEY ("sellerId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "orders" ADD CONSTRAINT "orders_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_medicine_id_fkey" FOREIGN KEY ("medicine_id") REFERENCES "medicines"("id") ON DELETE CASCADE ON UPDATE CASCADE;

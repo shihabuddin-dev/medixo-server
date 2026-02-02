@@ -1,13 +1,12 @@
 import express, { Application } from "express";
-import { auth } from "./lib/auth";
 import cors from "cors";
 import config from "./config";
-import { notFound } from "./middlewares/notFound";
-import errorHandler from "./middlewares/globalErrorHandler";
-import { toNodeHandler } from "better-auth/node";
-import { orderRouter } from "./modules/order/orders.router";
-import { userRouter } from "./modules/user/user.router";
 import { medicineRouter } from "./modules/medicine/medicine.router";
+import { auth } from "./lib/auth";
+import { toNodeHandler } from "better-auth/node";
+
+// import errorHandler from "./middlewares/globalErrorHandler";
+// import { notFound } from "./middlewares/notFound";
 
 const app: Application = express();
 
@@ -17,23 +16,16 @@ app.use(express.json());
 // cross origin resource sharing
 app.use(
   cors({
-    origin: config.app_url || "http://localhost:5000" || "http://localhost:3000" ||"http://localhost:4000",
+    origin: config.app_url || "http://localhost:5000" || "http://localhost:3000",
     credentials: true,
   })
 );
 
 // ROUTES
 // better auth 
-app.all("/api/auth/*splat", toNodeHandler(auth))
-
-// User Routes
-app.use('/api', userRouter)
-
-// Medicine Routes
-app.use('/api', medicineRouter)
-
-// Order Routes
-app.use('/api', orderRouter)
+app.all("/api/auth/*splat", toNodeHandler(auth));
+// posts
+app.use("/api", medicineRouter);
 
 
 app.get("/", (req, res) => {
@@ -41,8 +33,8 @@ app.get("/", (req, res) => {
 });
 
 // not found
-app.use(notFound)
+// app.use(notFound)
 // global error handler
-app.use(errorHandler)
+// app.use(errorHandler)
 
 export default app;
