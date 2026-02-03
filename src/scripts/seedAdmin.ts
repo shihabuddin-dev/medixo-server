@@ -47,7 +47,7 @@ async function seedAdmin() {
         },
       });
     }
-    console.log('✅ Email Verified');
+    console.log('Email Verified');
     console.log('---Success---');
   } catch (err) {
     console.error(err);

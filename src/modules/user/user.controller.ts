@@ -13,36 +13,35 @@ const getAllUser = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: "Failed to get All User",
+      details: err,
     });
   }
 };
 
-// const updateSingleUserStatus = async (req: Request, res: Response) => {
-//   try {
-//     const user = req.user;
-//     const { id } = req.params;
-//     if (!id) {
-//       throw new Error("Id is required");
-//     }
-//     const result = await userService.updateSingleUserStatus(
-//       id as unknown as string,
-//       req.body,
-//       user?.id!,
-//     );
-//     res.status(200).json({
-//       success: true,
-//       message: "Successfully Update User Status",
-//       data: result,
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       success: false,
-//       message: "Update to Failed User Status",
-//     });
-//   }
-// };
+const updateSingleUserStatus = async (req: Request, res: Response) => {
+  try {
+    const user = req.user;
+    const { id } = req.params;
+    if (!id) {
+      throw new Error("Id is required");
+    }
+    console.log("controller",user,  id, req.body);
+    const result = await userService.updateSingleUserStatus(id as string, req.body, user?.id as string);
+    res.status(200).json({
+      success: true,
+      message: "Successfully Update User Status",
+      data: result,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: "Update to Failed User Status",
+      details: err
+    });
+  }
+};
 
 export const userController = {
   getAllUser,
-//   updateSingleUserStatus,
+  updateSingleUserStatus,
 };

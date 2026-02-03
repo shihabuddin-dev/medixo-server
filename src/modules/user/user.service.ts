@@ -1,41 +1,27 @@
 import { prisma } from "../../lib/prisma";
-import { UserStatus } from "../../middlewares/auth";
 
 const getAllUser = async () => {
   const result = await prisma.user.findMany({});
   return result;
 };
 
-// const updateSingleUserStatus = async (
-//   id: string,
-//   data: { status: UserStatus },
-//   userId: string,
-// ) => {
-//   const userData = await prisma.user.findFirst({
-//     where: {
-//       id,
-//     //   userId,
-//     },
-//     select: {
-//       id: true,
-//     },
-//   });
-
-//   if (!userData) {
-//     throw new Error("Your provided input is invalid!");
-//   }
-
-//   return await prisma.user.update({
-//     where: {
-//       id,
-//       status,
-//     },
-//     data,
-//   });
-// };
-
+const updateSingleUserStatus = async (
+  id: string,
+  payload: { status: string },
+  userId: string,
+) => {
+  const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
+  if (user.role !== "ADMIN") {
+    throw new Error("Unauthorized");
+  }
+  await prisma.user.findUniqueOrThrow({ where: { id } });
+  return await prisma.user.update({
+    data: { status: payload.status as any },
+    where: { id },
+  });
+};
 
 export const userService = {
   getAllUser,
-//   updateSingleUserStatus,
+  updateSingleUserStatus,
 };

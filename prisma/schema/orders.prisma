@@ -1,12 +1,14 @@
 model Orders {
-    id               String   @id @default(uuid())
-    customerId      String
-    user             User     @relation(fields: [customerId], references: [id], onDelete: Cascade)
-    status           String
-    shipping_address String
-    created_at       DateTime @default(now())
+    id               String    @id @default(uuid())
+    customerId       String
+    user             User      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+    medicineId       String
+    medicines         Medicines @relation(fields: [medicineId], references: [id])
+    status           String    @default("Pending")
+    shippingAddress  String
+    createdAt        DateTime  @default(now())
     quantity         Int
-    price            Int
+    totalPrice       Int
 
     @@index([customerId])
     @@map("orders")

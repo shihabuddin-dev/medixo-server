@@ -11,5 +11,7 @@ const config = {
   auth_url: process.env.AUTH_URL,
   app_username: process.env.APP_USERNAME,
   app_password: process.env.APP_PASSWORD,
+  google_client_id: process.env.GOOGLE_CLIENT_ID,
+  google_client_secret: process.env.GOOGLE_CLIENT_SECRET,
 };
 export default config;

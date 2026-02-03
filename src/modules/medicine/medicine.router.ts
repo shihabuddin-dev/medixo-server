@@ -5,7 +5,9 @@ import auth, { UserRole } from "../../middlewares/auth";
 const router= Router()
 router.get('/medicines', medicineController.getAllMedicines)
 router.get('/medicines/:id', medicineController.getSingleMedicine)
-router.post('/medicines', auth(UserRole.ADMIN, UserRole.USER, UserRole.SELLER), medicineController.addNewMedicine)
+router.post('/medicines', auth(UserRole.ADMIN, UserRole.SELLER), medicineController.addNewMedicine)
+router.patch('/medicines/:id', auth(UserRole.ADMIN, UserRole.SELLER), medicineController.updateMedicineById)
+router.delete('/medicines/:id', auth(UserRole.ADMIN, UserRole.SELLER), medicineController.deleteMedicineById)
 
 
 export const medicineRouter:Router= router

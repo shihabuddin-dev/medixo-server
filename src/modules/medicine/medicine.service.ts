@@ -13,7 +13,7 @@ const getSingleMedicine = async (id: string) => {
 };
 
 const addNewMedicine = async (payload: {
-  categories_id?: string;
+  categoriesId?: string;
   sellerId: string;
   name: string;
   image: string;
@@ -21,7 +21,6 @@ const addNewMedicine = async (payload: {
   price: number;
   description: string;
 }) => {
-  console.log(payload)
   await prisma.user.findUniqueOrThrow({
     where: {
       id: payload.sellerId,
@@ -34,8 +33,39 @@ const addNewMedicine = async (payload: {
   return result;
 };
 
+const updateMedicineById = async (
+  id: string,
+  payload: {
+    categoriesId?: string;
+    name?: string;
+    image?: string;
+    stock?: number;
+    price?: number;
+    description?: string;
+  },
+) => {
+  const result = await prisma.medicines.update({
+    where: { id },
+    data: payload,
+  });
+  return result;
+};
+
+const deleteMedicineById = async (id: string) => {
+  const medicineData = await prisma.medicines.findFirst({ where: { id } });
+  if (!medicineData) {
+    throw new Error("Medicine not found");
+  }
+  const result = await prisma.medicines.delete({
+    where: { id },
+  });
+  return result;
+};
+
 export const medicineService = {
   getAllMedicines,
   getSingleMedicine,
   addNewMedicine,
+  updateMedicineById,
+  deleteMedicineById,
 };

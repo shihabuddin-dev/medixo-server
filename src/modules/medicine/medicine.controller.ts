@@ -46,26 +46,69 @@ const getSingleMedicine = async (req: Request, res: Response) => {
   }
 };
 
-const addNewMedicine=async(req:Request, res:Response)=>{
+const addNewMedicine = async (req: Request, res: Response) => {
   try {
     const user = req.user;
     req.body.sellerId = user?.id;
-    const result= await medicineService.addNewMedicine(req.body)
+    const result = await medicineService.addNewMedicine(req.body);
     res.status(201).json({
       success: true,
       message: "Successfully create new medicine",
-      data: result
-    })
+      data: result,
+    });
   } catch (err) {
     res.status(400).json({
       success: false,
       message: "Failed to create new medicine",
     });
   }
-}
+};
+
+const updateMedicineById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await medicineService.updateMedicineById(
+      id as string,
+      req.body,
+    );
+    res.status(200).json({
+      success: true,
+      message: "Successfully update medicine",
+      data: result,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to update medicine",
+    });
+  }
+};
+
+const deleteMedicineById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await medicineService.deleteMedicineById(id as string);
+    res.status(200).json({
+      success: true,
+      message: "Successfully delete medicine",
+      data: {
+        id: result.id,
+        name: result.name,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to delete medicine",
+      details: err,
+    });
+  }
+};
 
 export const medicineController = {
   getAllMedicines,
   getSingleMedicine,
-  addNewMedicine
+  addNewMedicine,
+  updateMedicineById,
+  deleteMedicineById,
 };
