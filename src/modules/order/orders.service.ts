@@ -1,13 +1,42 @@
 import { prisma } from "../../lib/prisma";
 
-const getAllOrder = async () => {
-  const result = await prisma.orders.findMany({});
+const getAllOrder = async (params?: {
+  sellerId?: string;
+  customerId?: string;
+}) => {
+  const { sellerId, customerId } = params || {};
+  const result = await prisma.orders.findMany({
+    where: {
+      AND: [
+        customerId ? { customerId } : {},
+        sellerId ? { medicines: { sellerId } } : {},
+      ],
+    },
+    include: {
+      medicines: true,
+      user: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
   return result;
 };
 
 const getSingleOrderDetails = async (id: string) => {
   const result = await prisma.orders.findUnique({
     where: { id },
+    include: {
+      medicines: true,
+      user: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+    },
   });
   return result;
 };
@@ -71,11 +100,9 @@ const createNewOrder = async (
   return result;
 };
 
-
-
 const updateOrderStatus = async (id: string, status: string) => {
   const result = await prisma.orders.update({
-    where: { id },  
+    where: { id },
     data: {
       status,
     },
@@ -83,18 +110,17 @@ const updateOrderStatus = async (id: string, status: string) => {
   return result;
 };
 
-
 const deleteOrder = async (id: string) => {
   const result = await prisma.orders.delete({
     where: { id },
   });
   return result;
-    }
+};
 
 export const orderService = {
   getAllOrder,
   getSingleOrderDetails,
   createNewOrder,
   updateOrderStatus,
-  deleteOrder
+  deleteOrder,
 };

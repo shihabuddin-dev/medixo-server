@@ -1,7 +1,47 @@
 import { prisma } from "../../lib/prisma";
 
-const getAllMedicines = async () => {
-  const result = await prisma.medicines.findMany({});
+const getAllMedicines = async (query: {
+  searchTerm?: string;
+  category?: string;
+  categoriesId?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  sellerId?: string;
+}) => {
+  const { searchTerm, category, categoriesId, minPrice, maxPrice, sellerId } =
+    query;
+
+  const where: any = {};
+
+  const activeCategory = category || categoriesId;
+
+  if (searchTerm) {
+    where.OR = [
+      { name: { contains: searchTerm, mode: "insensitive" } },
+      { description: { contains: searchTerm, mode: "insensitive" } },
+    ];
+  }
+
+  if (activeCategory && activeCategory !== "all") {
+    where.categoriesId = activeCategory;
+  }
+
+  if (minPrice !== undefined || maxPrice !== undefined) {
+    where.price = {};
+    if (minPrice !== undefined) where.price.gte = Number(minPrice);
+    if (maxPrice !== undefined) where.price.lte = Number(maxPrice);
+  }
+
+  if (sellerId) {
+    where.sellerId = sellerId;
+  }
+
+  const result = await prisma.medicines.findMany({
+    where,
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
   return result;
 };
 

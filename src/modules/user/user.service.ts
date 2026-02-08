@@ -21,7 +21,15 @@ const updateSingleUserStatus = async (
   });
 };
 
+const updateMyProfile = async (id: string, payload: Partial<any>) => {
+  return await prisma.user.update({
+    where: { id },
+    data: payload,
+  });
+};
+
 export const userService = {
   getAllUser,
   updateSingleUserStatus,
+  updateMyProfile,
 };

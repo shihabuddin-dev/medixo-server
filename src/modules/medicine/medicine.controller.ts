@@ -3,7 +3,7 @@ import { medicineService } from "./medicine.service";
 
 const getAllMedicines = async (req: Request, res: Response) => {
   try {
-    const result = await medicineService.getAllMedicines();
+    const result = await medicineService.getAllMedicines(req.query);
     res.status(200).json({
       success: true,
       message: "Successfully get all medicines",

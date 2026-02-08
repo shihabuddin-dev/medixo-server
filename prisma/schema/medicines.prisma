@@ -10,6 +10,8 @@ model Medicines {
   description String
   reviews Reviews[]
   orders  Orders[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
   @@index([sellerId])
   @@map("medicines")

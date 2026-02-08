@@ -3,7 +3,11 @@ import { orderService } from "./orders.service";
 
 const getAllOrder = async (req: Request, res: Response) => {
   try {
-    const result = await orderService.getAllOrder();
+    const { sellerId, customerId } = req.query;
+    const result = await orderService.getAllOrder({
+      sellerId: sellerId as string,
+      customerId: customerId as string,
+    });
     res.status(200).json({
       success: true,
       message: "Successfully get all Orders",
@@ -90,5 +94,5 @@ export const orderController = {
   getAllOrder,
   getSingleOrderDetails,
   createNewOrder,
-  updateOrderStatus
+  updateOrderStatus,
 };

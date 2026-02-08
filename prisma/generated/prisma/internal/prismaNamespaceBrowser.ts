@@ -87,6 +87,7 @@ export const UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   role: 'role',
   phone: 'phone',
+  address: 'address',
   status: 'status'
 } as const
 
@@ -155,7 +156,9 @@ export const MedicinesScalarFieldEnum = {
   image: 'image',
   stock: 'stock',
   price: 'price',
-  description: 'description'
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type MedicinesScalarFieldEnum = (typeof MedicinesScalarFieldEnum)[keyof typeof MedicinesScalarFieldEnum]
