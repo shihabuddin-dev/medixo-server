@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx tsx watch src/server.ts",
     "seed:admin": "npx tsx watch src/scripts/seedAdmin.ts",
-    "seed:categories": "npx tsx src/scripts/seedCategories.ts"
+    "seed:categories": "npx tsx src/scripts/seedCategories.ts",
+    "build": "prisma generate && tsup",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,7 @@
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "prisma": "^7.3.0",
+    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
