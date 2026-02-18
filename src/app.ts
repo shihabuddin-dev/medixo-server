@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(
   cors({
     origin:
-      config.app_url || "http://localhost:5000" || "http://localhost:3000",
+      [config.app_url!, "http://localhost:5000" , "http://localhost:3000"],
     credentials: true,
   }),
 );
