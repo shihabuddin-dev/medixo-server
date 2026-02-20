@@ -456,6 +456,17 @@ var auth = betterAuth({
     // or "mysql", "postgresql", ...etc
   }),
   trustedOrigins: [config_default.app_url],
+  //  for cross-domain cookies in production
+  cookies: {
+    sessionToken: {
+      attributes: {
+        sameSite: "none",
+        // MUST for cross-domain
+        secure: true
+        // MUST in production
+      }
+    }
+  },
   user: {
     additionalFields: {
       role: {
@@ -793,7 +804,7 @@ var userController = {
 // src/modules/user/user.router.ts
 var router2 = Router2();
 router2.get("/admin/users", auth_default("ADMIN" /* ADMIN */), userController.getAllUser);
-router2.patch("/me", auth_default(), userController.updateMyProfile);
+router2.patch("/me", auth_default("CUSTOMER" /* USER */, "SELLER" /* SELLER */, "ADMIN" /* ADMIN */), userController.updateMyProfile);
 router2.patch(
   "/admin/users/:id",
   auth_default("ADMIN" /* ADMIN */),
@@ -1097,7 +1108,7 @@ var router4 = Router4();
 router4.get("/orders", auth_default("ADMIN" /* ADMIN */, "CUSTOMER" /* USER */), orderController.getAllOrder);
 router4.get("/orders/:id", auth_default("ADMIN" /* ADMIN */, "CUSTOMER" /* USER */, "SELLER" /* SELLER */), orderController.getSingleOrderDetails);
 router4.post("/orders", auth_default("ADMIN" /* ADMIN */, "CUSTOMER" /* USER */), orderController.createNewOrder);
-router4.patch("/orders/:id", auth_default("ADMIN" /* ADMIN */), orderController.updateOrderStatus);
+router4.patch("/orders/:id", auth_default("ADMIN" /* ADMIN */, "SELLER" /* SELLER */), orderController.updateOrderStatus);
 var orderRouter = router4;
 
 // src/app.ts
@@ -1105,7 +1116,13 @@ var app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: config_default.app_url || "http://localhost:5000",
+    origin: [
+      config_default.app_url,
+      "http://localhost:5000",
+      "http://localhost:3000",
+      "https://medixo-client.vercel.app",
+      "https://medixo-server.vercel.app"
+    ],
     credentials: true
   })
 );

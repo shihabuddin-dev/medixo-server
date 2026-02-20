@@ -18,8 +18,13 @@ app.use(express.json());
 // cross origin resource sharing (CORS)
 app.use(
   cors({
-    origin:
-      [config.app_url!, "http://localhost:5000" , "http://localhost:3000", "https://medixo-client.vercel.app", "https://medixo-server.vercel.app/"],
+    origin: [
+      config.app_url!,
+      "http://localhost:5000",
+      "http://localhost:3000",
+      "https://medixo-client.vercel.app",
+      "https://medixo-server.vercel.app",
+    ],
     credentials: true,
   }),
 );
@@ -40,7 +45,6 @@ app.use("/api", categoryRouter);
 
 // Order
 app.use("/api", orderRouter);
-
 
 app.get("/", (req, res) => {
   res.send("Hello Boss from Server");

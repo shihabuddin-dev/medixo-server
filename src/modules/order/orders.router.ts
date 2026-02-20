@@ -8,6 +8,6 @@ const router = Router();
 router.get("/orders",auth(UserRole.ADMIN, UserRole.USER),orderController.getAllOrder);
 router.get("/orders/:id", auth(UserRole.ADMIN, UserRole.USER, UserRole.SELLER),orderController.getSingleOrderDetails);
 router.post("/orders", auth(UserRole.ADMIN, UserRole.USER), orderController.createNewOrder);
-router.patch("/orders/:id", auth(UserRole.ADMIN, ), orderController.updateOrderStatus);
+router.patch("/orders/:id", auth(UserRole.ADMIN, UserRole.SELLER), orderController.updateOrderStatus);
 
 export const orderRouter: Router = router;

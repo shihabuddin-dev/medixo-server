@@ -5,7 +5,7 @@ import auth, { UserRole } from "../../middlewares/auth";
 const router = Router();
 
 router.get("/admin/users", auth(UserRole.ADMIN), userController.getAllUser);
-router.patch("/me", auth(), userController.updateMyProfile);
+router.patch("/me", auth(UserRole.USER, UserRole.SELLER, UserRole.ADMIN), userController.updateMyProfile);
 router.patch(
   "/admin/users/:id",
   auth(UserRole.ADMIN),
